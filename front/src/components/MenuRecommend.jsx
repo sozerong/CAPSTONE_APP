@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import KeywordGraph from "./KeywordGraph.js";
-import PipelineModal from "./PipelineModal";
+import KeywordGraph from "./KeywordGraph.jsx";
+import PipelineModal from "./PipelineModal.jsx";
+
+// ✅ 환경변수에서 API 주소 가져오기
+const RECOMMEND_URL = process.env.REACT_APP_RECOMMEND_URL;
 
 const KEYWORDS = [
   "최근 유행하는 재료",
@@ -26,7 +29,7 @@ const KeywordRecommend = () => {
   const fetchData = async (keyword) => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:8001/search?query=${encodeURIComponent(keyword)}`);
+      const res = await axios.get(`${RECOMMEND_URL}/search?query=${encodeURIComponent(keyword)}`);
       setResult(res.data[0]);
     } catch (err) {
       console.error("❌ API 오류:", err);
@@ -45,7 +48,7 @@ const KeywordRecommend = () => {
     console.log("🧠 [지식그래프 구경하기] 버튼 클릭");
     try {
       setGraphLoading(true);
-      const res = await axios.get(`http://localhost:8001/graph?all=true`);
+      const res = await axios.get(`${RECOMMEND_URL}/graph?all=true`);
       setGraphData(res.data);
       setShowGraph(true);
     } catch (err) {

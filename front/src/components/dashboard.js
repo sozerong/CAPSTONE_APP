@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+// ✅ API 주소를 환경변수에서 가져옴
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Dashboard = () => {
   const [activeMenu, setActiveMenu] = useState("Dash Board");
   const [currentDate, setCurrentDate] = useState("");
-  const [recommendMenu, setRecommendMenu] = useState(null); // ✅ 추천메뉴 state 추가
+  const [recommendMenu, setRecommendMenu] = useState(null);
 
   // 오늘 날짜
   useEffect(() => {
@@ -21,9 +24,9 @@ const Dashboard = () => {
   // ✅ 추천메뉴 API 요청
   useEffect(() => {
     if (activeMenu === "Dash Board") {
-      const keyword = "봄 디저트"; // 또는 계절별로 자동 설정도 가능
+      const keyword = "봄 디저트"; // 계절 기반 자동화도 가능
       axios
-        .get(`http://localhost:8000/search?query=${encodeURIComponent(keyword)}`)
+        .get(`${API_URL}/search?query=${encodeURIComponent(keyword)}`)
         .then((res) => setRecommendMenu(res.data))
         .catch((err) => {
           console.error("추천메뉴 로딩 실패:", err);

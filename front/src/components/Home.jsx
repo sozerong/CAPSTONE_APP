@@ -12,6 +12,10 @@ import {
 import { useLocation } from "react-router-dom";
 import './css/Home.css';
 
+// ✅ 환경변수에서 API 주소 가져오기
+const API_URL = process.env.REACT_APP_API_URL;
+const RECOMMEND_URL = process.env.REACT_APP_RECOMMEND_URL;
+
 const Home = () => {
   const location = useLocation();
   const [recommendMenu, setRecommendMenu] = useState(null);
@@ -19,7 +23,6 @@ const Home = () => {
   const [totalSales, setTotalSales] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
 
-  // ✅ KST 기준 날짜 변환 함수
   const getKSTDateString = (date) => {
     const tzOffset = date.getTimezoneOffset() * 60000;
     const kstDate = new Date(date.getTime() - tzOffset);
@@ -30,7 +33,7 @@ const Home = () => {
     try {
       const keyword = "카페 신메뉴 추천";
       const encoded = encodeURIComponent(keyword);
-      const res = await axios.get(`http://localhost:8001/search?query=${encoded}`);
+      const res = await axios.get(`${RECOMMEND_URL}/search?query=${encoded}`);
       setRecommendMenu(res.data[0]);
     } catch (err) {
       console.error("추천 메뉴 불러오기 실패:", err);
@@ -60,9 +63,9 @@ const Home = () => {
 
     await Promise.all(
       dates.map(async (date) => {
-        const iso = getKSTDateString(date); // ✅ KST 기준
+        const iso = getKSTDateString(date);
         try {
-          const res = await axios.get(`http://localhost:8000/api/data/budget/${iso}/`, {
+          const res = await axios.get(`${API_URL}/api/data/budget/${iso}/`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           salesSum += res.data.sales;
@@ -86,17 +89,15 @@ const Home = () => {
 
     await Promise.all(
       dates.map(async (date) => {
-        const iso = getKSTDateString(date); // ✅ KST 기준
+        const iso = getKSTDateString(date);
         const label = date.toLocaleDateString("ko-KR", {
           month: "2-digit",
           day: "2-digit"
         });
 
         try {
-          const res = await axios.get(`http://localhost:8000/api/data/budget/${iso}/`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
+          const res = await axios.get(`${API_URL}/api/data/budget/${iso}/`, {
+            headers: { Authorization: `Bearer ${token}` }
           });
 
           result.push({
@@ -104,7 +105,7 @@ const Home = () => {
             sales: res.data.sales,
             expense: res.data.expense
           });
-        } catch (err) {
+        } catch {
           result.push({
             date: label,
             sales: 0,
@@ -126,51 +127,19 @@ const Home = () => {
 
   return (
     <>
-          <section className="charts"
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '30px',
-          marginBottom: '50px',
-          justifyContent: 'space-between'
-        }}
-      >
-        <div className="card" style={{
-          flex: "1 1 45%",
-          minWidth: "300px",
-          maxHeight: '300px',
-          overflow: "hidden"
-        }}>
-        <div className="card-title">이번달 추천메뉴</div>
-        {recommendMenu ? (
-          <div style={{
-            flex: 1,
-            overflowY: "auto",
-            paddingRight: "5px",
-            paddingBottom: "5px"
-          }}>
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "16px",
-              backgroundColor: "#f7f7f7",
-              padding: "20px",
-              borderRadius: "10px"
-            }}>
-              {recommendMenu.recommendations.map((item, idx) => (
-                <div key={idx} style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "8px",
-                  padding: "14px 18px",
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.05)"
-                }}>
-                  <h4 style={{ marginBottom: "6px", color: "#333" }}>{item.name}</h4>
-                  <p style={{ margin: 0, fontSize: "14px", color: "#666", lineHeight: 1.6 }}>
-                    {item.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+      <section className="charts" style={{ display: 'flex', flexWrap: 'wrap', gap: '30px', marginBottom: '50px', justifyContent: 'space-between' }}>
+        <div className="card" style={{ flex: "1 1 45%", minWidth: "300px", maxHeight: '300px', overflow: "hidden" }}>
+          <div className="card-title">이번달 추천메뉴</div>
+          {recommendMenu ? (
+            <div style={{ flex: 1, overflowY: "auto", paddingRight: "5px", paddingBottom: "5px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px", backgroundColor: "#f7f7f7", padding: "20px", borderRadius: "10px" }}>
+                {recommendMenu.recommendations.map((item, idx) => (
+                  <div key={idx} style={{ backgroundColor: "#fff", borderRadius: "8px", padding: "14px 18px", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+                    <h4 style={{ marginBottom: "6px", color: "#333" }}>{item.name}</h4>
+                    <p style={{ margin: 0, fontSize: "14px", color: "#666", lineHeight: 1.6 }}>{item.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           ) : (
             <div style={{ textAlign: "center", padding: "20px" }}>
@@ -179,30 +148,14 @@ const Home = () => {
           )}
         </div>
 
-        <div className="card" style={{
-          flex: "1 1 45%",
-          minWidth: "300px",
-          maxHeight: '300px',
-          overflowY: 'auto'
-        }}>
+        <div className="card" style={{ flex: "1 1 45%", minWidth: "300px", maxHeight: '300px', overflowY: 'auto' }}>
           <div className="card-title">지역 평균 매출</div>
           <img src="/bar_sample.png" alt="매출 비교" style={{ width: '100%' }} />
         </div>
       </section>
-      <section className="cards"
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '30px',
-          marginBottom: '50px',
-          justifyContent: 'space-between'
-        }}
-      >
-        <div className="card" style={{
-          flex: "1 1 40%",
-          minWidth: "300px",
-          height: "320px"
-        }}>
+
+      <section className="cards" style={{ display: 'flex', flexWrap: 'wrap', gap: '30px', marginBottom: '50px', justifyContent: 'space-between' }}>
+        <div className="card" style={{ flex: "1 1 40%", minWidth: "300px", height: "320px" }}>
           <div className="card-title">📊 이번달 매출 / 지출</div>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={monthlyData}>
@@ -210,30 +163,12 @@ const Home = () => {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line
-                type="monotone"
-                dataKey="sales"
-                stroke="#4ade80"
-                name="매출"
-                strokeWidth={2}
-                dot
-              />
-              <Line
-                type="monotone"
-                dataKey="expense"
-                stroke="#f87171"
-                name="지출"
-                strokeWidth={2}
-                dot
-              />
+              <Line type="monotone" dataKey="sales" stroke="#4ade80" name="매출" strokeWidth={2} dot />
+              <Line type="monotone" dataKey="expense" stroke="#f87171" name="지출" strokeWidth={2} dot />
             </LineChart>
           </ResponsiveContainer>
         </div>
-
-
       </section>
-
-
     </>
   );
 };
