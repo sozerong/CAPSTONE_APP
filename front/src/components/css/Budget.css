@@ -1,0 +1,97 @@
+.budget-layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    margin: 30px auto;
+    max-width: 1100px;
+    box-sizing: border-box;
+    padding: 20px;
+    font-family: sans-serif;
+  }
+  
+  .calendar-box {
+    transform: scale(1.1);
+    transform-origin: top center;
+    flex: 1 1 300px;
+    min-width: 250px;
+  }
+  
+  .budget-box {
+    flex: 1 1 300px;
+    min-width: 300px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    font-size: 1.05rem;
+  }
+  
+  .input-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .input-row label {
+    font-weight: bold;
+    margin-right: 10px;
+    width: 80px;
+  }
+  
+  .input-row input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+  }
+  
+  .save-btn {
+    margin-top: 10px;
+    padding: 8px 20px;
+    background-color: #0284c7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .summary {
+    margin-top: 20px;
+  }
+  
+  .summary p {
+    margin: 5px 0;
+    font-size: 15px;
+  }
+  
+  .chart-box {
+    flex: 1 1 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+    min-width: 300px;
+  }
+  
+  /* Datepicker 스타일 */
+  .react-datepicker {
+    user-select: none;
+  }
+  
+  .react-datepicker__day,
+  .react-datepicker__day-name {
+    font-size: 1rem;
+    width: 2.4rem;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .react-datepicker__current-month,
+  .react-datepicker__header {
+    cursor: default !important;
+    user-select: none !important;
+  }
+  
