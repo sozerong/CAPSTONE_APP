@@ -15,6 +15,9 @@ import {
 import { useLocation } from "react-router-dom";
 import './css/Home.css';
 
+const DJANGO_URL = process.env.REACT_APP_DJANGO_URL;     // ✅ Django 서버 URL
+const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL;   // ✅ FastAPI 서버 URL
+
 const Home = () => {
   const location = useLocation();
   const [recommendMenu, setRecommendMenu] = useState(null);
@@ -33,7 +36,7 @@ const Home = () => {
     try {
       const keyword = "카페 신메뉴 추천";
       const encoded = encodeURIComponent(keyword);
-      const res = await axios.get(`http://localhost:8001/search?query=${encoded}`);
+      const res = await axios.get(`${FASTAPI_URL}/search?query=${encoded}`);
       setRecommendMenu(res.data[0]);
     } catch (err) {
       console.error("추천 메뉴 불러오기 실패:", err);
@@ -63,7 +66,7 @@ const Home = () => {
       dates.map(async (date) => {
         const iso = getKSTDateString(date);
         try {
-          const res = await axios.get(`http://localhost:8000/api/data/budget/${iso}/`, {
+          const res = await axios.get(`${DJANGO_URL}/api/data/budget/${iso}/`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           salesSum += res.data.sales;
@@ -92,7 +95,7 @@ const Home = () => {
         });
 
         try {
-          const res = await axios.get(`http://localhost:8000/api/data/budget/${iso}/`, {
+          const res = await axios.get(`${DJANGO_URL}/api/data/budget/${iso}/`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           result.push({ date: label, sales: res.data.sales, expense: res.data.expense });
@@ -108,14 +111,14 @@ const Home = () => {
 
   const fetchAvgSales = async () => {
     try {
-      const gu = "광진구"; // 또는 사용자 정보 기반으로 설정
+      const gu = "광진구";
       const res = await axios.get(`https://cafe-sales.onrender.com/sales/monthly_avg/${encodeURIComponent(gu)}`);
       const avg = res.data["카페당_월_평균_매출"];
   
       const chartData = [
         {
-          name: "당월 평균 매출",  // ✅ 라벨 고정
-          value: Math.round(avg/10000), // 💰 만원 단위 변환
+          name: "당월 평균 매출",
+          value: Math.round(avg / 10000),
         },
       ];
   
@@ -124,7 +127,6 @@ const Home = () => {
       console.error("지역 평균 매출 요청 실패:", err);
     }
   };
-  
 
   useEffect(() => {
     fetchRecommend();
@@ -132,11 +134,6 @@ const Home = () => {
     fetchBudgetForMonth();
     fetchAvgSales();
   }, [location.pathname]);
-  
-  useEffect(() => {
-    console.log("📊 평균 매출 데이터 확인:", avgSalesData);
-  }, [avgSalesData]);
-  
 
   return (
     <>
@@ -169,7 +166,6 @@ const Home = () => {
           )}
         </div>
 
-        {/* ✅ 지역 평균 매출 */}
         <div className="card" style={{ flex: "1 1 45%", minWidth: "300px", maxHeight: '300px', overflowY: 'auto' }}>
           <div className="card-title">자치구 평균 매출</div>
           <ResponsiveContainer width="100%" height={250}>
@@ -181,16 +177,14 @@ const Home = () => {
               <Bar
                 dataKey="value"
                 fill="#007acc"
-                barSize={24} // ✅ 막대 너비 줄임
-                label={false} // ✅ 숫자 라벨 제거
+                barSize={24}
+                label={false}
               />
             </BarChart>
           </ResponsiveContainer>
         </div>
-
       </section>
 
-      {/* ✅ 매출/지출 라인차트 */}
       <section className="cards" style={{
         display: 'flex',
         flexWrap: 'wrap',

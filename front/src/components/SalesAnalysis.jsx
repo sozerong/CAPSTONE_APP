@@ -3,6 +3,8 @@ import axios from "axios";
 import SalesChart from "./SalesChart";
 import SeoulMap from "./SeoulMap";
 
+const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL; // ✅ FastAPI 주소 환경변수로 관리
+
 const normalizeYearlyData = (data, divisor = 365) => {
   const result = {};
   for (const key in data) {
@@ -29,7 +31,7 @@ const SalesAnalysis = () => {
 
   useEffect(() => {
     axios
-      .get(`https://cafe-sales.onrender.com/sales/${selectedGu}`)
+      .get(`${FASTAPI_URL}/sales/${selectedGu}`) // ✅ 환경변수 적용
       .then((res) => {
         setSalesData(res.data);
         const normalized = normalizeYearlyData(res.data);
@@ -88,13 +90,12 @@ const SalesAnalysis = () => {
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "center",
-        alignItems: "center",     // ✅ 수직 중앙 정렬
-        minHeight: "80vh",       // ✅ 전체 높이 기준
+        alignItems: "center",
+        minHeight: "80vh",
         padding: "10px",
         boxSizing: "border-box",
       }}
     >
-      {/* 좌측 영역 */}
       <div style={{ flex: "1 1 500px", maxWidth: "700px", minWidth: "320px" }}>
         <SeoulMap onGuClick={setSelectedGu} selectedGu={selectedGu} />
 
@@ -142,14 +143,13 @@ const SalesAnalysis = () => {
         )}
       </div>
 
-      {/* 우측 차트 영역 */}
       <div
         style={{
           flex: "1 1 700px",
           maxWidth: "800px",
           minWidth: "320px",
           paddingRight: "20px",
-          marginLeft: "40px"  // ✅ 좌우 간격 추가
+          marginLeft: "40px"
         }}
       >
         <h2 style={{ marginBottom: "20px" }}>{selectedGu} 매출 분석</h2>

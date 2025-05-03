@@ -3,6 +3,8 @@ import axios from "axios";
 import KeywordGraph from "./KeywordGraph.js";
 import PipelineModal from "./PipelineModal";
 
+const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL; // ✅ 환경변수로 API 주소 설정
+
 const KEYWORDS = [
   "최근 유행하는 재료",
   "SNS에서 핫한 조합",
@@ -26,7 +28,7 @@ const KeywordRecommend = () => {
   const fetchData = async (keyword) => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:8001/search?query=${encodeURIComponent(keyword)}`);
+      const res = await axios.get(`${FASTAPI_URL}/search?query=${encodeURIComponent(keyword)}`); // ✅ 수정됨
       setResult(res.data[0]);
     } catch (err) {
       console.error("❌ API 오류:", err);
@@ -45,7 +47,7 @@ const KeywordRecommend = () => {
     console.log("🧠 [지식그래프 구경하기] 버튼 클릭");
     try {
       setGraphLoading(true);
-      const res = await axios.get(`http://localhost:8001/graph?all=true`);
+      const res = await axios.get(`${FASTAPI_URL}/graph?all=true`); // ✅ 수정됨
       setGraphData(res.data);
       setShowGraph(true);
     } catch (err) {

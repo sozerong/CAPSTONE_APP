@@ -2,33 +2,34 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = process.env.REACT_APP_API_URL; // ✅ 환경변수에서 Django 서버 주소 가져오기
+
 const Login = () => {
-  const [username, setUsername] = useState(""); // JWT는 username 필드 사용
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/accounts/login/",
+        `${API_URL}/api/accounts/login/`, // ✅ 환경변수 사용
         { username, password },
         {
           headers: { "Content-Type": "application/json" },
         }
       );
 
-      console.log("✅ 로그인 응답:", res.data); // 응답 확인
+      console.log("✅ 로그인 성공:", res.data);
 
       if (res.data && res.data.access) {
         localStorage.setItem("token", res.data.access);
-        navigate("/");
+        // 로그인 후 동작 추가 가능
       } else {
         setError("❌ 서버로부터 토큰을 받지 못했습니다.");
       }
     } catch (err) {
-      console.error("❌ 로그인 실패:", err.response?.data || err.message);
-      setError("로그인 실패: 아이디 또는 비밀번호를 확인해주세요");
+      console.error("❌ 로그인 실패:", err.message);
+      setError("❌ 로그인 중 오류가 발생했습니다.");
     }
   };
 

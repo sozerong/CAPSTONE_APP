@@ -10,6 +10,8 @@ import {
   CartesianGrid,
 } from "recharts";
 
+const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL; // ✅ 환경변수에서 FastAPI 주소 가져오기
+
 const MonthlyAvgSalesChart = ({ guName }) => {
   const [data, setData] = useState([]);
 
@@ -17,13 +19,13 @@ const MonthlyAvgSalesChart = ({ guName }) => {
     if (!guName) return;
 
     axios
-      .get(`https://cafe-sales.onrender.com/sales/monthly_avg/${encodeURIComponent(guName)}`)
+      .get(`${FASTAPI_URL}/sales/monthly_avg/${encodeURIComponent(guName)}`) // ✅ 환경변수 기반 주소
       .then((res) => {
         const avg = res.data["당월_평균_매출"];
         setData([
           {
-            name: "당월 평균 매출", // ✅ label 고정
-            value: Math.round(avg / 10000), // 💰 만원 단위 변환
+            name: "당월 평균 매출",
+            value: Math.round(avg / 10000),
           },
         ]);
       })
