@@ -32,6 +32,7 @@ const MonthlyAvgSalesChart = ({ guName }) => {
       .catch((err) => console.error("평균 매출 요청 실패:", err));
   }, [guName]);
 
+  
   return (
     <div
       className="card"
