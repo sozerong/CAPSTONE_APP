@@ -7,7 +7,7 @@ const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL; // ✅ 환경변수로 AP
 
 const KEYWORDS = [
   "최근 유행하는 재료",
-  "SNS에서 핫한 조합",
+  "SNS에서 핫한 메뉴",
   "카페 신메뉴 추천",
   "달콤한 메뉴가 필요할 때",
   "비주얼이 예쁜 메뉴",
