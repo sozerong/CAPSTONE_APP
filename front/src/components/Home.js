@@ -15,7 +15,7 @@ import {
 import { useLocation } from "react-router-dom";
 import './css/Home.css';
 
-const DJANGO_URL = process.env.REACT_APP_DJANGO_URL;     // ✅ Django 서버 URL
+const DJANGO_URL = process.env.REACT_APP_API_URL;     // ✅ Django 서버 URL
 const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL;   // ✅ FastAPI 서버 URL
 
 const Home = () => {
@@ -112,7 +112,7 @@ const Home = () => {
   const fetchAvgSales = async () => {
     try {
       const gu = "광진구";
-      const res = await axios.get(`https://cafe-sales.onrender.com/sales/monthly_avg/${encodeURIComponent(gu)}`);
+      const res = await axios.get(`${FASTAPI_URL}/sales/monthly_avg/${encodeURIComponent(gu)}`);
       const avg = res.data["카페당_월_평균_매출"];
   
       const chartData = [
