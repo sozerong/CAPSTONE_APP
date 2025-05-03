@@ -1,36 +1,32 @@
 import React from "react";
 
-const KeywordGraph = ({ videoUrl }) => {
+const KeywordGraph = ({ imageUrl }) => {
   return (
     <div
       style={{
         position: "relative",
-        width: "100vw",
-        height: "100vh",
+        width: "100%",
+        height: "100%",
         overflow: "hidden",
-        backgroundColor: "#000", // ✅ 로딩 중 깜빡임 방지용
+        borderRadius: "16px", // ✅ 모달 안 둥근 테두리 고려
+        backgroundImage: `url(${imageUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "#000",
       }}
     >
-      {/* ✅ 영상 배경 */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
+      {/* ✅ 이미지 위에 추가 요소가 있다면 여기에 추가 */}
+      <div
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 0,
-          backgroundColor: "#000", // ✅ 재확인용
+          position: "relative",
+          zIndex: 1,
+          color: "#fff",
+          padding: "20px",
         }}
       >
-        <source src={videoUrl} type="video/mp4" />
-        ※ 브라우저가 비디오를 지원하지 않습니다. ※
-      </video>
+        {/* 예시 텍스트 또는 그래프 삽입 가능 */}
+      </div>
     </div>
   );
 };
