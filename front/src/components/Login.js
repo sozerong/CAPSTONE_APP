@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = process.env.REACT_APP_API_URL; // ✅ 환경변수에서 Django 서버 주소 가져오기
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = async () => {
+  const navigate = useNavigate(); // ✅ 로그인 후 이동
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // ✅ Enter 시 새로고침 방지
+
     try {
       const res = await axios.post(
-        `${API_URL}/api/accounts/login/`, // ✅ 환경변수 사용
+        `${API_URL}/api/accounts/login/`,
         { username, password },
         {
           headers: { "Content-Type": "application/json" },
@@ -23,7 +27,7 @@ const Login = () => {
 
       if (res.data && res.data.access) {
         localStorage.setItem("token", res.data.access);
-        // 로그인 후 동작 추가 가능
+        navigate("/"); // ✅ 로그인 후 메인 페이지로 이동
       } else {
         setError("❌ 서버로부터 토큰을 받지 못했습니다.");
       }
@@ -41,7 +45,7 @@ const Login = () => {
       justifyContent: "center",
       alignItems: "center"
     }}>
-      <div style={{
+      <form onSubmit={handleSubmit} style={{
         backgroundColor: "#fff",
         padding: "40px",
         borderRadius: "12px",
@@ -86,7 +90,7 @@ const Login = () => {
         />
 
         <button
-          onClick={handleLogin}
+          type="submit" // ✅ Enter 키 작동을 위한 submit
           style={{
             width: "100%",
             padding: "12px",
@@ -112,7 +116,7 @@ const Login = () => {
             {error}
           </p>
         )}
-      </div>
+      </form>
     </div>
   );
 };
