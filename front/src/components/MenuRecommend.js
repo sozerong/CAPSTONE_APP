@@ -170,13 +170,46 @@ const KeywordRecommend = () => {
         </button>
       </div>
 
-      {showGraph && graphData && (
-        <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0,0,0,0.6)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 9999 }}>
-          <div style={{ backgroundColor: "#fff", width: "90%", height: "80%", borderRadius: "10px", padding: "20px", position: "relative" }}>
-            <button onClick={() => setShowGraph(false)} style={{ position: "absolute", top: "15px", right: "20px", fontWeight: "bold" }}>X</button>
-            <h4 style={{ marginBottom: "15px" }}>📌 전체 지식그래프</h4>
+      {showGraph && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.6)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#fff",
+              width: "90%",
+              height: "80%",
+              borderRadius: "10px",
+              padding: "20px",
+              position: "relative",
+            }}
+          >
+            <button
+              onClick={() => setShowGraph(false)}
+              style={{
+                position: "absolute",
+                top: "15px",
+                right: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              X
+            </button>
+            <h4 style={{ marginBottom: "15px" }}>📌 지식그래프 (Limit 600 nodes)</h4>
             <div style={{ height: "90%", width: "100%" }}>
-              {graphData.nodes?.length > 0 ? <KeywordGraph data={graphData} /> : <p style={{ textAlign: "center", color: "#999" }}>⚠️ 표시할 노드가 없습니다.</p>}
+              {/* ✅ 기존: <KeywordGraph data={graphData} /> */}
+              <KeywordGraph videoUrl="https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/neo4j.mp4" />
             </div>
           </div>
         </div>
