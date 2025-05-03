@@ -206,7 +206,7 @@ const KeywordRecommend = () => {
             >
               X
             </button>
-            <h4 style={{ marginBottom: "15px" }}>📌 지식그래프 (Limit 600 nodes)</h4>
+            <h4 style={{ marginBottom: "15px" }}>📌 지식그래프 </h4>
             <div style={{ height: "90%", width: "100%" }}>
               {/* ✅ 이미지 기반으로 변경 */}
               <KeywordGraph imageUrl="https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/neo4j_2.png" />
