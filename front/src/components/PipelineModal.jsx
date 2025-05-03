@@ -8,7 +8,7 @@ const PipelineModal = ({ onClose }) => {
     <div className="pipeline-modal-overlay">
       <div className="pipeline-modal-content">
         <button className="close-button" onClick={onClose}>X</button>
-        <h3 className="modal-title">🛠 전체 데이터 파이프라인</h3>
+        <h3 className="modal-title">🛠 주요 데이터 파이프라인</h3>
         <PipelineScrollPage />
       </div>
     </div>

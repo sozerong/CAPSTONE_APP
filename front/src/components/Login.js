@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// ✅ 환경변수에서 API 주소 불러오기
-const API_URL = process.env.REACT_APP_API_URL;
-
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(""); // JWT는 username 필드 사용
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -14,14 +11,14 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        `${API_URL}/api/accounts/login/`,
+        "http://localhost:8000/api/accounts/login/",
         { username, password },
         {
           headers: { "Content-Type": "application/json" },
         }
       );
 
-      console.log("✅ 로그인 응답:", res.data);
+      console.log("✅ 로그인 응답:", res.data); // 응답 확인
 
       if (res.data && res.data.access) {
         localStorage.setItem("token", res.data.access);

@@ -5,56 +5,43 @@ import "./hideScrollbar.css";
 
 const steps = [
   {
-    title: "YouTube",
+    logo: "https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/youtube_logo.png",
     color: "#e53935",
     desc: "콘텐츠 수집 출발점",
-    image: "https://raw.githubusercontent.com/your-username/your-repo/main/images/youtube.png"
+    image: "https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/youtube.png",
+    descColor: "#111" 
   },
   {
-    title: "Kafka",
+    logo: "https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/kafka_logo.png",
     color: "#1e88e5",
-    desc: "데이터 스트리밍 처리",
-    image: "https://raw.githubusercontent.com/your-username/your-repo/main/images/kafka.png"
+    desc: "실시간 영상 데이터 수집",
+    video: "https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/kafka.mp4",
+    descColor: "#fff" 
   },
   {
-    title: "Spark",
+    logo: "https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/spark_logo.png",
     color: "#43a047",
-    desc: "대규모 데이터 전처리",
-    image: "https://raw.githubusercontent.com/your-username/your-repo/main/images/spark.png"
+    desc: "영상 데이터 전처리",
+    video: "https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/spark.mp4",
+    descColor: "#fff"
   },
   {
-    title: "LLM Agent",
+    logo: "https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/langchain_logo.png",
     color: "#fbc02d",
     desc: "키워드 관련 정보 추출",
-    image: "https://raw.githubusercontent.com/your-username/your-repo/main/images/llmagent.png"
+    image: "https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/langchain.png",
+    descColor: "#111" 
   },
   {
-    title: "Neo4j",
+    logo: "https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/neo4j_logo.png",
     color: "#8e24aa",
-    desc: "지식그래프 저장소",
-    image: "https://raw.githubusercontent.com/your-username/your-repo/main/images/neo4j.png"
+    desc: "지식그래프 저장소 및 추론",
+    image: "https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/neo4j.png",
+    descColor: "#111" 
   },
-  {
-    title: "GraphRAG",
-    color: "#00acc1",
-    desc: "그래프 기반 추천 생성",
-    image: "https://raw.githubusercontent.com/your-username/your-repo/main/images/graphrag.png"
-  },
-  {
-    title: "Elasticsearch",
-    color: "#6d4c41",
-    desc: "검색용 인덱싱",
-    image: "https://raw.githubusercontent.com/your-username/your-repo/main/images/elasticsearch.png"
-  },
-  {
-    title: "FastAPI",
-    color: "#5e35b1",
-    desc: "응답 처리 및 제공",
-    image: "https://raw.githubusercontent.com/your-username/your-repo/main/images/fastapi.png"
-  }
 ];
 
-const StepSection = ({ title, desc, color, image }) => {
+const StepSection = ({ logo, desc, descColor , image, video }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.3 });
 
@@ -73,53 +60,71 @@ const StepSection = ({ title, desc, color, image }) => {
         hidden: { opacity: 0, y: 100 }
       }}
       style={{
-        backgroundColor: "#fdfdfd",
+        position: "relative",
         height: "100vh",
+        overflow: "hidden",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
-        padding: "40px"
+        padding: "40px",
+        color: "#fff",
+        backgroundImage: video ? "none" : `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      <motion.div
-        style={{
-          backgroundColor: color,
-          padding: "30px 60px",
-          borderRadius: "20px",
-          color: "#fff",
-          fontSize: "2rem",
-          fontWeight: "bold",
-          marginBottom: "20px"
-        }}
-      >
-        {title}
-      </motion.div>
-      <motion.p
-        style={{
-          fontSize: "1.2rem",
-          color: "#333",
-          maxWidth: "600px",
-          textAlign: "center",
-          marginBottom: "20px"
-        }}
-      >
-        {desc}
-      </motion.p>
-      {image && (
-        <motion.img
-          src={image}
-          alt={`${title} 결과`}
+      {/* ✅ 영상 배경 */}
+      {video && (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
           style={{
-            maxWidth: "70%",
-            borderRadius: "12px",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.1)"
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
           }}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
+          src={video}
         />
       )}
+
+      <motion.img
+        src={logo}
+        alt="logo"
+        style={{
+          zIndex: 1,
+          maxWidth: "250px",
+          maxHeight: "120px",
+          marginBottom: "20px",
+          filter: "drop-shadow(0px 2px 6px rgba(0,0,0,0.5))",
+          borderRadius: "12px" // ✅ 둥근 모서리 적용
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+      />
+
+      <motion.p
+          style={{
+            zIndex: 1,
+            fontSize: "1.4rem",
+            color: descColor || "#111", // ✅ props에서 색상 받아서 적용
+            fontWeight: "600",
+            maxWidth: "600px",
+            textAlign: "center",
+            marginBottom: "20px"
+          }}
+        >
+          {desc}
+        </motion.p>
+
     </motion.section>
   );
 };
@@ -128,7 +133,16 @@ const PipelineScrollPage = () => {
   return (
     <div className="hide-scrollbar">
       {steps.map((s, i) => (
-        <StepSection key={i} title={s.title} desc={s.desc} color={s.color} image={s.image} />
+        <StepSection
+          key={i}
+          logo={s.logo}
+          desc={s.desc}
+          color={s.color}
+          image={s.image}
+          video={s.video}
+          descColor={s.descColor} // ✅ 추가
+
+        />
       ))}
     </div>
   );

@@ -1,0 +1,45 @@
+# -------------------------
+# 🔥 Python / Django
+# -------------------------
+*.pyc
+__pycache__/
+*.sqlite3
+*.log
+*.pot
+*.py[cod]
+*.so
+db.sqlite3
+/media
+/staticfiles
+/static
+venv/
+.env
+.env.*
+
+# Optional: IDEs
+.vscode/
+.idea/
+
+# -------------------------
+# ⚛ React (frontend)
+# -------------------------
+front/node_modules/
+front/build/
+front/.DS_Store
+front/.env
+front/.env.local
+front/.env.development.local
+front/.env.production.local
+front/.env.test.local
+front/npm-debug.log*
+front/yarn-debug.log*
+front/yarn-error.log*
+
+# -------------------------
+# ✅ Common
+# -------------------------
+.DS_Store
+*.swp
+*.swo
+*.bak
+Thumbs.db

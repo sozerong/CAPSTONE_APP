@@ -16,9 +16,6 @@ import "./css/Budget.css";
 
 registerLocale("ko", ko);
 
-// ✅ 환경변수에서 API 주소 가져오기
-const API_URL = process.env.REACT_APP_API_URL;
-
 // ✅ KST 기준 날짜 문자열 YYYY-MM-DD
 const getDateKey = (date) => {
   const kstDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
@@ -27,7 +24,7 @@ const getDateKey = (date) => {
 
 const getCurrentWeekDates = () => {
   const today = new Date();
-  const dayOfWeek = today.getDay();
+  const dayOfWeek = today.getDay(); // 0: 일요일, 1: 월요일 ...
   const monday = new Date(today);
   monday.setDate(today.getDate() - dayOfWeek + 1);
 
@@ -51,7 +48,7 @@ const Budget = () => {
     const isoDate = getDateKey(date);
 
     try {
-      const res = await axios.get(`${API_URL}/api/data/budget/${isoDate}/`, {
+      const res = await axios.get(`http://localhost:8000/api/data/budget/${isoDate}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -85,7 +82,7 @@ const Budget = () => {
     };
 
     try {
-      await axios.post(`${API_URL}/api/data/budget/`, payload, {
+      await axios.post("http://localhost:8000/api/data/budget/", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
