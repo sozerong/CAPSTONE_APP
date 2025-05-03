@@ -203,7 +203,7 @@ const KeywordRecommend = () => {
                 transition: "opacity 0.6s ease"
               }}
             >
-              <div style={{ fontSize: "1.8rem", marginBottom: "10px" }}>⬇ 아래로 스크롤하세요 ⬇</div>
+              <div style={{ fontSize: "1.8rem", marginBottom: "10px" }}>⬇  아래로 스크롤하세요  ⬇</div>
               <div style={{ fontSize: "3rem" }}>👇</div>
             </div>
           )}
