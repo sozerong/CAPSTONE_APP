@@ -28,7 +28,8 @@ const SalesChart = ({ title, data, type = "line" }) => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          <Tooltip 
+                    formatter={(value) => [`${value.toLocaleString()}원`, '매출']}/>
           {type === "bar" ? (
             <Bar dataKey="value" fill="#1976d2" barSize={50} /> // ✅ barSize로 두께 조절 (기본은 너무 두꺼움)
           ) : (

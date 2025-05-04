@@ -173,7 +173,7 @@ const Home = () => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
-              <Tooltip formatter={(value) => `${value.toLocaleString()}만원`} />
+              <Tooltip  formatter={(value) => [`${value.toLocaleString()}원`, '매출']}/>
               <Bar
                 dataKey="value"
                 fill="#007acc"
