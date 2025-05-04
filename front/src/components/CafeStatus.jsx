@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import SeoulSVG from "./SeoulSVG";
 import InfoBox from "./InfoBox";
+import VideoModal from "./VideoModal"; // ✅ 영상 모달 컴포넌트 추가
 
 const CafeStatus = () => {
   const [selectedGu, setSelectedGu] = useState(null);
+  const [showVideo, setShowVideo] = useState(false); // ✅ 영상 모달 상태
 
   return (
     <div style={{ position: "relative", padding: "30px" }}>
-      {/* ✅ 초기 안내 문구 (자치구 선택 전만 표시) */}
+      {/* ✅ 초기 안내 문구 */}
       {!selectedGu && (
         <div
           style={{
@@ -22,7 +24,7 @@ const CafeStatus = () => {
             background: "rgba(255, 255, 255, 0.8)",
             padding: "12px 24px",
             borderRadius: "12px",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.2)"
+            boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
           }}
         >
           지도를 클릭하여 자치구를 선택해주세요
@@ -51,7 +53,7 @@ const CafeStatus = () => {
           <SeoulSVG onGuClick={setSelectedGu} />
         </div>
 
-        {/* ✅ 자치구 선택 시 박스들 표시 */}
+        {/* ✅ 자치구 선택 시 박스들 */}
         {selectedGu && (
           <>
             <div style={{ position: "absolute", top: "0px", left: "190px", width: "300px" }}>
@@ -77,6 +79,27 @@ const CafeStatus = () => {
           </>
         )}
       </div>
+
+      {/* ✅ 영상 보기 버튼 */}
+      <div style={{ textAlign: "center", marginTop: "30px" }}>
+        <button
+          onClick={() => setShowVideo(true)}
+          style={{
+            padding: "12px 24px",
+            fontSize: "16px",
+            backgroundColor: "#1976d2",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+          }}
+        >
+          ▶ 수집과정 구경하기
+        </button>
+      </div>
+
+      {/* ✅ 영상 모달 */}
+      {showVideo && <VideoModal onClose={() => setShowVideo(false)} />}
     </div>
   );
 };
