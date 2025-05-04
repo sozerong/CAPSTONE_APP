@@ -54,7 +54,7 @@ const CafeStatus = () => {
         {/* ✅ 자치구 선택 시 박스들 표시 */}
         {selectedGu && (
           <>
-            <div style={{ position: "absolute", top: "0px", left: "220px", width: "300px" }}>
+            <div style={{ position: "absolute", top: "0px", left: "190px", width: "300px" }}>
               <InfoBox title="카페 수" gu={selectedGu} />
             </div>
             <div style={{ position: "absolute", top: "0px", right: "250px", width: "400px" }}>
@@ -67,7 +67,7 @@ const CafeStatus = () => {
               style={{
                 position: "absolute",
                 top: "450px",
-                right: "80px",
+                right: "50px",
                 width: "500px",
                 height: "300px",
               }}
