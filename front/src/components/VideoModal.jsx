@@ -5,49 +5,50 @@ const VideoModal = ({ onClose }) => {
     <div
       style={{
         position: "fixed",
-        top: 0, left: 0,
-        width: "100%", height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.95)",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.9)",
+        zIndex: 9999,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        zIndex: 9999,
       }}
     >
-      <div
+      <video
+        src="https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/web.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
         style={{
-          position: "relative",
-          width: "80%",
-          maxWidth: "960px",
-          backgroundColor: "black",
-          borderRadius: "8px",
-          overflow: "hidden",
+          width: "90%",
+          height: "90%",
+          objectFit: "contain",
+          borderRadius: "16px",
+          boxShadow: "0 0 20px rgba(0,0,0,0.5)",
+          zIndex: 10000,
+        }}
+      />
+
+      {/* ✔ Close Button */}
+      <button
+        onClick={onClose}
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "30px",
+          fontSize: "28px",
+          color: "white",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          zIndex: 10001,
         }}
       >
-        <button
-          onClick={onClose}
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            zIndex: 10000,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            color: "white",
-            border: "none",
-            fontSize: "20px",
-            cursor: "pointer",
-          }}
-        >
-          ✕
-        </button>
-
-        <video
-          src="https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/web.mp4"
-          controls
-          autoPlay
-          style={{ width: "100%", height: "auto", display: "block" }}
-        />
-      </div>
+        ✕
+      </button>
     </div>
   );
 };
