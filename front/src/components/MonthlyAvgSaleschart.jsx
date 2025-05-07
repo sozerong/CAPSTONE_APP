@@ -10,7 +10,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL; // ✅ 환경변수에서 FastAPI 주소 가져오기
+const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL; 
 
 const MonthlyAvgSalesChart = ({ guName }) => {
   const [data, setData] = useState([]);
@@ -19,7 +19,7 @@ const MonthlyAvgSalesChart = ({ guName }) => {
     if (!guName) return;
 
     axios
-      .get(`${FASTAPI_URL}/sales/monthly_avg/${encodeURIComponent(guName)}`) // ✅ 환경변수 기반 주소
+      .get(`${FASTAPI_URL}/sales/monthly_avg/${encodeURIComponent(guName)}`) 
       .then((res) => {
         const avg = res.data["당월_평균_매출"];
         setData([

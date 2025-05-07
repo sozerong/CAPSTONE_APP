@@ -3,7 +3,7 @@ import axios from "axios";
 import KeywordGraph from "./KeywordGraph.js";
 import PipelineModal from "./PipelineModal";
 
-const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL; // ✅ 환경변수로 API 주소 설정
+const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL;
 
 const KEYWORDS = [
   "최근 유행하는 재료",
@@ -28,7 +28,7 @@ const KeywordRecommend = () => {
   const fetchData = async (keyword) => {
     try {
       setLoading(true);
-      const res = await axios.get(`${FASTAPI_URL}/search?query=${encodeURIComponent(keyword)}`); // ✅ 수정됨
+      const res = await axios.get(`${FASTAPI_URL}/search?query=${encodeURIComponent(keyword)}`); 
       setResult(res.data[0]);
     } catch (err) {
       console.error("❌ API 오류:", err);
@@ -47,7 +47,7 @@ const KeywordRecommend = () => {
     console.log("🧠 [지식그래프 구경하기] 버튼 클릭");
     try {
       setGraphLoading(true);
-      const res = await axios.get(`${FASTAPI_URL}/graph?all=true`); // ✅ 수정됨
+      const res = await axios.get(`${FASTAPI_URL}/graph?all=true`); 
       setGraphData(res.data);
       setShowGraph(true);
     } catch (err) {
@@ -208,7 +208,7 @@ const KeywordRecommend = () => {
             </button>
             <h4 style={{ marginBottom: "15px" }}>📌 지식그래프 </h4>
             <div style={{ height: "90%", width: "100%" }}>
-              {/* ✅ 이미지 기반으로 변경 */}
+              {/*  이미지 기반으로 변경 */}
               <KeywordGraph imageUrl="https://raw.githubusercontent.com/sozerong/SMU_CAPSTONE_IMG/main/neo4j_2.png" />
             </div>
           </div>

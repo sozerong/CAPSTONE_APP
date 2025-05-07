@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-// ✅ 최종 정제된 클릭 가능한 좌표값 (800px 지도 기준)
 const guList = [
     { name: "종로구", top: 310, left: 375, width: 40, height: 20 },
     { name: "중구", top: 375, left: 410, width: 30, height: 18 },

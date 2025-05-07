@@ -8,7 +8,7 @@ const KeywordGraph = ({ imageUrl }) => {
         width: "100%",
         height: "100%",
         overflow: "hidden",
-        borderRadius: "16px", // ✅ 모달 안 둥근 테두리 고려
+        borderRadius: "16px", 
         backgroundImage: `url(${imageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -16,7 +16,7 @@ const KeywordGraph = ({ imageUrl }) => {
         backgroundColor: "#000",
       }}
     >
-      {/* ✅ 이미지 위에 추가 요소가 있다면 여기에 추가 */}
+      {/*  이미지 위에 추가 요소가 있다면 여기에 추가 */}
       <div
         style={{
           position: "relative",

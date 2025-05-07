@@ -3,7 +3,7 @@ import axios from "axios";
 import SalesChart from "./SalesChart";
 import SeoulMap from "./SeoulMap";
 
-const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL; // ✅ FastAPI 주소 환경변수로 관리
+const FASTAPI_URL = process.env.REACT_APP_FASTAPI_URL; 
 
 const normalizeYearlyData = (data, divisor = 365) => {
   const result = {};
@@ -31,7 +31,7 @@ const SalesAnalysis = () => {
 
   useEffect(() => {
     axios
-      .get(`${FASTAPI_URL}/sales/${selectedGu}`) // ✅ 환경변수 적용
+      .get(`${FASTAPI_URL}/sales/${selectedGu}`) 
       .then((res) => {
         setSalesData(res.data);
         const normalized = normalizeYearlyData(res.data);

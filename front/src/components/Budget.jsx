@@ -16,7 +16,7 @@ import "./css/Budget.css";
 
 registerLocale("ko", ko);
 
-const API_URL = process.env.REACT_APP_API_URL; // ✅ 환경변수에서 불러온 API 주소
+const API_URL = process.env.REACT_APP_API_URL; 
 
 const getDateKey = (date) => {
   const kstDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);

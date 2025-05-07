@@ -32,7 +32,7 @@ const VideoModal = ({ onClose }) => {
         }}
       />
 
-      {/* ✔ Close Button */}
+      {/* Close Button */}
       <button
         onClick={onClose}
         style={{

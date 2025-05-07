@@ -75,7 +75,7 @@ const StepSection = ({ logo, desc, descColor , image, video }) => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* ✅ 영상 배경 */}
+      {/*  영상 배경 */}
       {video && (
         <video
           autoPlay
@@ -104,7 +104,7 @@ const StepSection = ({ logo, desc, descColor , image, video }) => {
           maxHeight: "120px",
           marginBottom: "20px",
           filter: "drop-shadow(0px 2px 6px rgba(0,0,0,0.5))",
-          borderRadius: "12px" // ✅ 둥근 모서리 적용
+          borderRadius: "12px" //  둥근 모서리 적용
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -115,7 +115,7 @@ const StepSection = ({ logo, desc, descColor , image, video }) => {
           style={{
             zIndex: 1,
             fontSize: "1.4rem",
-            color: descColor || "#111", // ✅ props에서 색상 받아서 적용
+            color: descColor || "#111", 
             fontWeight: "600",
             maxWidth: "600px",
             textAlign: "center",
@@ -140,7 +140,7 @@ const PipelineScrollPage = () => {
           color={s.color}
           image={s.image}
           video={s.video}
-          descColor={s.descColor} // ✅ 추가
+          descColor={s.descColor} 
 
         />
       ))}
