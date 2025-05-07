@@ -1,18 +1,19 @@
+// ✅ Login.jsx
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const navigate = useNavigate(); // ✅ 로그인 후 이동
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // ✅ Enter 시 새로고침 방지
+    e.preventDefault();
 
     try {
       const res = await axios.post(
@@ -23,16 +24,15 @@ const Login = () => {
         }
       );
 
-      console.log("✅ 로그인 성공:", res.data);
-
       if (res.data && res.data.access) {
         localStorage.setItem("token", res.data.access);
-        navigate("/"); // ✅ 로그인 후 메인 페이지로 이동
+        onLogin(); // ✅ App에 알려주기
+        navigate("/"); // ✅ 이동
       } else {
         setError("❌ 서버로부터 토큰을 받지 못했습니다.");
       }
     } catch (err) {
-      console.error("❌ 로그인 실패:", err.message);
+      console.error("❌ 로그인 실패:", err.response ? err.response.data : err.message);
       setError("❌ 로그인 중 오류가 발생했습니다.");
     }
   };
