@@ -157,7 +157,7 @@ const SalesAnalysis = () => {
         {salesData ? (
           <>
             <SalesChart
-              title="연령대별 매출"
+              title="연령대별 일일평균 매출"
               height={180}
               data={normalizeYearlyData({
                 "10대": salesData["연령_10"],
@@ -169,7 +169,7 @@ const SalesAnalysis = () => {
               })}
             />
             <SalesChart
-              title="요일별 매출"
+              title="요일별 일일평균 매출"
               height={180}
               data={normalizeYearlyData({
                 월: salesData["월"],
@@ -182,7 +182,7 @@ const SalesAnalysis = () => {
               })}
             />
             <SalesChart
-              title="시간대별 매출"
+              title="시간대별 일일평균 매출"
               height={180}
               data={normalizeYearlyData({
                 "00~06시": salesData["00_06"],
