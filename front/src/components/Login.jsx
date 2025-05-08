@@ -71,6 +71,7 @@ const Login = ({ onLogin }) => {
         >
           🔐 로그인
         </h2>
+        <h5>ID : test1 / PW : test123</h5>
 
         <input
           type="text"
