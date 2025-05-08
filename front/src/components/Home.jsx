@@ -111,7 +111,7 @@ const Home = () => {
 
   const fetchAvgSales = async () => {
     try {
-      const gu = "강서구";
+      const gu = "강남구구";
       const res = await axios.get(`${FASTAPI_URL}/sales/monthly_avg/${encodeURIComponent(gu)}`);
       const avg = res.data["카페당_월_평균_매출"];
   
