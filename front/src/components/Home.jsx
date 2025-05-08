@@ -118,7 +118,7 @@ const Home = () => {
       const chartData = [
         {
           name: "당월 평균 매출",
-          value: Math.round(avg / 10000),
+          value: Math.round(avg),
         },
       ];
   
