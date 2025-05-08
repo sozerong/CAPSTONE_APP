@@ -111,14 +111,14 @@ const Home = () => {
 
   const fetchAvgSales = async () => {
     try {
-      const gu = "중구";
+      const gu = "강서구";
       const res = await axios.get(`${FASTAPI_URL}/sales/monthly_avg/${encodeURIComponent(gu)}`);
       const avg = res.data["카페당_월_평균_매출"];
   
       const chartData = [
         {
           name: "당월 평균 매출",
-          value: Math.round(avg),
+          value: Math.round(avg/10000),
         },
       ];
   
@@ -173,7 +173,7 @@ const Home = () => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
-              <Tooltip  formatter={(value) => [`${value.toLocaleString()}원`, '매출']}/>
+              <Tooltip  formatter={(value) => [`${value.toLocaleString()}만원`, '매출']}/>
               <Bar
                 dataKey="value"
                 fill="#007acc"
