@@ -111,7 +111,7 @@ const Home = () => {
 
   const fetchAvgSales = async () => {
     try {
-      const gu = "강남구구";
+      const gu = "강남구";
       const res = await axios.get(`${FASTAPI_URL}/sales/monthly_avg/${encodeURIComponent(gu)}`);
       const avg = res.data["카페당_월_평균_매출"];
   
@@ -167,7 +167,7 @@ const Home = () => {
         </div>
 
         <div className="card" style={{ flex: "1 1 45%", minWidth: "300px", maxHeight: '300px', overflowY: 'auto' }}>
-          <div className="card-title">자치구 평균 매출</div>
+          <div className="card-title">강남구 월 평균 매출</div>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={avgSalesData}>
               <CartesianGrid strokeDasharray="3 3" />
