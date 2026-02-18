@@ -13,7 +13,7 @@ import {
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
-const API_URL = "https://port-0-fastapi-ma7qi2cl823545d5.sel4.cloudtype.app";
+const API_URL = "https://port-0-fastapi11-ma7qi2cl823545d5.sel4.cloudtype.app";
 
 const InfoBox = ({ title, gu, border = true }) => {
   const [data, setData] = useState(null);
